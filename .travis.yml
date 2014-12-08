@@ -1,0 +1,17 @@
+language: node_js
+
+node_js:
+- 0.10
+
+after_success:
+- CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate < ./coverage/lcov.info
+
+deploy:
+  api_key:
+    secure: D5zeobqYuLS4cvYbtx0Vo+8A43b6abAsHIm2AxbPTAyUtHm2qDwu8Td5S+gd9JLgY1i2zYEFuXDYQV1UNo07XVoWI2YnBupubN9odi9Enc2rqkic1mpBKnyXfL84ip5kaEjwMKxqmuWGZPms5W/jcNfCD1kuZ8vQNW3lc2X0SM4=
+  email: thaiat@ipelia.com
+  provider: npm
+  on:
+    tags: true
+    all_branches: true
+    repo: thaiat/gulp-mux

@@ -7,7 +7,7 @@ describe('maths', function() {
 
     });
 
-    it('#add() should succesd', function() {
+    it('#add() should succeed', function() {
         var ret = maths.add(12, 13);
         assert.equal(ret, 25);
     });

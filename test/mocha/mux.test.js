@@ -6,7 +6,6 @@ describe('mux', function() {
     var clientFolder = 'www';
 
     beforeEach(function() {
-
         this.constants = require('./asset/constants.js');
 
         this.add = function(a, b) {
@@ -40,6 +39,12 @@ describe('mux', function() {
     });
 
     it('#createSingleFn() with null fn should throw', function() {
+        assert.throws(function() {
+            mux.createSingleFn(null);
+        }, Error);
+    });
+
+    xit('#createSingleFn() with null fn should throw', function() {
         assert.throws(function() {
             mux.createSingleFn(null);
         }, Error);

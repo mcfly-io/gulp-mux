@@ -15,8 +15,6 @@ module.exports = {
 
     BASE_TARGET_NAME: BASE_TARGET_NAME,
 
-    repository: 'https://github.com/jskrzypek/gulpTargetFlag',
-
     versionFiles: ['./package.json', './bower.json', './config.xml'],
 
     growly: {

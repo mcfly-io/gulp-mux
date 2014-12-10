@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "lodash": "^2.4.1",
-    "lodash-deep": "^1.4.2"
+    "lodash-deep": "^1.4.2",
+    "randomstring": "^1.0.3"
   },
   "devDependencies": {
     "chai": "^1.10.0",

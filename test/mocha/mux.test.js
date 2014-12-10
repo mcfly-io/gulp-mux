@@ -6,28 +6,6 @@ describe('mux', function() {
     var clientFolder = 'www';
 
     beforeEach(function() {
-
-        this.constants = {
-            lint: ['./' + clientFolder + '/**/*.js', '!./' + clientFolder + '/**/*-*.js', './' + clientFolder + '/**/*${ target }.js', './server/**/*.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'karam.conf.js', 'test/**/*.js', '!test/**/*-*.js', 'test/**/*${ target }.js', '!./' + clientFolder + '/scripts/bundle*.js', '!./' + clientFolder + '/scripts/bundle*.min.js'],
-
-            fonts: {
-                src: ['./bower_components/ionic/release/fonts/*.*'],
-                dest: './' + clientFolder + '/fonts'
-            },
-
-            style: {
-                src: ['./' + clientFolder + '/styles/**/*.css', '!./' + clientFolder + '/styles/**/*-*.css', './' + clientFolder + '/styles/**/*${ target }.css', './' + clientFolder + '/styles/**/*.scss', '!./' + clientFolder + '/styles/**/*-*.scss', './' + clientFolder + '/styles/**/*${ target }.scss', '!./' + clientFolder + '/styles/main*.css', '!./' + clientFolder + '/styles/main*.min.css'],
-                dest: './' + clientFolder + '/styles',
-                destName: 'main${ target }.css',
-                sass: {
-                    src: ['./' + clientFolder + '/styles/main${ target }.scss']
-                },
-                css: {
-                    src: ['./bower_components/famous-angular/dist/famous-angular.css']
-                }
-            }
-        };
-
         this.constants = require('./asset/constants.js');
 
         this.add = function(a, b) {
@@ -36,7 +14,7 @@ describe('mux', function() {
     });
 
     it('#resolveConstants() should succeed', function() {
-        var ret = mux.resolveConstants(this.constants, '-web');
+        var ret = mux.resolveConstants(this.constants, {targetName: 'web', targetSuffix: '-web'});
         assert.deepEqual(ret.style.sass.src, ['./' + clientFolder + '/styles/main-web.scss']);
     });
 
@@ -61,6 +39,12 @@ describe('mux', function() {
     });
 
     it('#createSingleFn() with null fn should throw', function() {
+        assert.throws(function() {
+            mux.createSingleFn(null);
+        }, Error);
+    });
+
+    xit('#createSingleFn() with null fn should throw', function() {
         assert.throws(function() {
             mux.createSingleFn(null);
         }, Error);

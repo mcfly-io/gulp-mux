@@ -1,2 +1,3 @@
 'use strict';
-module.exports.maths = require('./lib/maths');
+module.exports = require('./lib/mux');
+module.exports.targets = require('./lib/targets');

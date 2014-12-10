@@ -29,6 +29,10 @@ describe('mux', function() {
         };
 
         this.constants = require('./asset/constants.js');
+
+        this.add = function(a, b) {
+            return a + b;
+        };
     });
 
     it('#resolveConstants() should succeed', function() {
@@ -49,6 +53,17 @@ describe('mux', function() {
     it('#resolveConstants() with target null should return original constants', function() {
         var ret = mux.resolveConstants(this.constants);
         assert.deepEqual(ret.style.sass.src, ['./' + clientFolder + '/styles/main.scss']);
+    });
+
+    it('#createSingleFn() should succeed', function() {
+        var ret = mux.createSingleFn(this.add, 12, 13);
+        assert.equal(ret(), 25);
+    });
+
+    it('#createSingleFn() with null fn should throw', function() {
+        assert.throws(function() {
+            mux.createSingleFn(null);
+        }, Error);
     });
 
 });

@@ -119,7 +119,9 @@ gulp.task('static', false, function() {
                 }
             }
         }))
-        .pipe(jshint('.jshintrc'))
+        .pipe(jshint({
+            lookup: true
+        }))
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jscs())
         .pipe(eslint())

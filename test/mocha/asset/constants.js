@@ -25,26 +25,18 @@ module.exports = {
         failedIcon: path.join(cwd, 'node_modules/karma-growl-reporter/images/failed.png')
     },
 
-    mocha: {
-        libs: ['server/**/*.js'],
-        tests: ['test/mocha/**/*.js'],
-        globals: 'test/mocha/helpers/globals.js',
-        timeout: 5000
-    },
-
-    lint: ['./' + clientFolder + '/**/*.js', '!./' + clientFolder + '/**/*-*.js', './' + clientFolder + '/**/*${ target }.js', './server/**/*.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'karam.conf.js', 'test/**/*.js', '!test/**/*-*.js', 'test/**/*${ target }.js', '!./' + clientFolder + '/scripts/bundle*.js', '!./' + clientFolder + '/scripts/bundle*.min.js'],
-
+    lint: ['./' + clientFolder + '/**/*.js', '!./' + clientFolder + '/**/*-*.js', './' + clientFolder + '/**/*{{targetSuffix}}.js', './server/**/*.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'karam.conf.js', 'test/**/*.js', '!test/**/*-*.js', 'test/**/*{{targetSuffix}}.js', '!./' + clientFolder + '/scripts/bundle*.js', '!./' + clientFolder + '/scripts/bundle*.min.js'],
     fonts: {
-        src: ['./bower_components/ionic/release/fonts/*.*'],
+        src: [],
         dest: './' + clientFolder + '/fonts'
     },
 
     style: {
-        src: ['./' + clientFolder + '/styles/**/*.css', '!./' + clientFolder + '/styles/**/*-*.css', './' + clientFolder + '/styles/**/*${ target }.css', './' + clientFolder + '/styles/**/*.scss', '!./' + clientFolder + '/styles/**/*-*.scss', './' + clientFolder + '/styles/**/*${ target }.scss', '!./' + clientFolder + '/styles/main*.css', '!./' + clientFolder + '/styles/main*.min.css'],
+        src: ['./' + clientFolder + '/styles/**/*.css', '!./' + clientFolder + '/styles/**/*-*.css', './' + clientFolder + '/styles/**/*{{targetSuffix}}.css', './' + clientFolder + '/styles/**/*.scss', '!./' + clientFolder + '/styles/**/*-*.scss', './' + clientFolder + '/styles/**/*{{targetSuffix}}.scss', '!./' + clientFolder + '/styles/main*.css', '!./' + clientFolder + '/styles/main*.min.css'],
         dest: './' + clientFolder + '/styles',
-        destName: 'main${ target }.css',
+        destName: 'main{{targetSuffix}}.css',
         sass: {
-            src: ['./' + clientFolder + '/styles/main${ target }.scss']
+            src: ['./' + clientFolder + '/styles/main{{targetSuffix}}.scss']
         },
         css: {
             src: ['./bower_components/famous-angular/dist/famous-angular.css']
@@ -52,21 +44,27 @@ module.exports = {
     },
 
     browserify: {
-        src: ['./' + clientFolder + '/scripts/**/main.js', './' + clientFolder + '/scripts/**/main${ target }.js'],
+        src: './' + clientFolder + '/scripts/main{{targetSuffix}}.js',
         dest: './' + clientFolder + '/scripts',
-        bundleName: 'bundle${ target }.js'
+        bundleName: 'bundle{{targetSuffix}}.js'
     },
 
     serve: {
-        root: clientFolder,
+        root: 'dist/{{targetName}}',
         host: '0.0.0.0',
         livereload: 9000,
         port: 9500,
-        localtunnel: true, // true, false or 'gulp-target-flag'
-        files: {
-            index: '/index${ target }.html',
-            bundle: '/scripts/bundle${ target }.js',
-            style: '/styles/main${ target }.css'
-        }
+        localtunnel: true // true, false or '<%= appname %>'
+    },
+
+    mocha: {
+        libs: ['server/**/*.js'],
+        tests: ['test/mocha/**/*.js'],
+        globals: 'test/mocha/helpers/globals.js',
+        timeout: 5000
+    },
+
+    dist: {
+        distFolder: 'dist/{{targetName}}/'
     }
 };

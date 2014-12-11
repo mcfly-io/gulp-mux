@@ -1,40 +1,62 @@
 'use strict';
 
-var targets = require('../../lib/targets');
+var fs = require('fs');
+var _ = require('lodash');
 
 describe('targets', function() {
-    var clientFolder = 'www';
+    var clientFolder = 'test/mocha/asset';
     var defaultTarget = 'app';
 
-    it('should throw an error when called without clientFolder', function() {
-        assert.throws(targets, Error);
+    describe('require', function() {
+        it('should throw an error when called without clientFolder', function() {
+            assert.throws(require('../../lib/targets'), Error);
+        });
+
+        it('should throw an error when called without clientFolder', function() {
+            assert.throws(require('../../lib/targets'), Error);
+        });
+
+        it('should throw an error when called with falsey clientFolder', function() {
+            assert.throws(require('../../lib/targets').bind(null, ''), Error);
+        });
+
+        it('should succeed when called with a clientFolder', function() {
+            assert.ok(require('../../lib/targets').bind(null, clientFolder));
+        });
+
+        it('should succeed when called with a  clientFolder and defaultTarget', function() {
+            assert.ok(require('../../lib/targets').bind(null, clientFolder, defaultTarget));
+        });
+
+        it('should succeed when called with a clientFolder, defaultTarget, and argv', function() {
+            assert.ok(require('../../lib/targets').bind(null, clientFolder, defaultTarget, {}));
+        });
     });
 
-    it('should throw an error when called with falsey clientFolder', function() {
-        assert.throws(targets.bind(null, ''), Error);
-    });
+    describe('internals', function() {
+        // beforeEach(function() {
+        //    var targets = require('../../lib/targets')(clientFolder, null, null);
+        // });
 
-    it('should throw an error when called with falsey clientFolder but a valid defaultTarget', function() {
-        assert.throws(targets.bind(null, '', 'app'), Error);
-    });
+        it('should find all targets when required with only the clientFolder', function() {
+            var targets = require('../../lib/targets')(clientFolder, null, null);
 
-    it('should succeed when called with a valid clientFolder', function() {
-        assert.ok(targets.bind(null, clientFolder));
-    });
+            var expected = {
+                allTargets: ['app', 'web', 'mobile'],
+                names: ['app', 'web', 'mobile'],
+                suffixes: ['', '-web', '-mobile'],
+                templates: [
+                    {targetName: 'app', targetSuffix: ''},
+                    {targetName: 'web', targetSuffix: '-web'},
+                    {targetName: 'mobile', targetSuffix: '-mobile'}
+                ]
+            };
 
-    it('should succeed when called with a valid clientFolder and defaultTarget', function() {
-        assert.ok(targets.bind(null, clientFolder, defaultTarget));
-    });
-
-    beforeEach(function() {
-        this.constants = require('./asset/constants.js');
-
-        this.add = function(a, b) {
-            return a + b;
-        };
-    });
-
-    xit('should throw an error when called without passing a clientFolder argument.', function() {
-        assert.throws(targets, /clientFolder\ constant\ not\ set/);
+            assert.deepEqual(_(targets.allTargets).sortBy().value(), _(expected.allTargets).sortBy().value());
+            assert.deepEqual(_(targets.names).sortBy().value(), _(expected.names).sortBy().value());
+            assert.deepEqual(_(targets.suffixes).sortBy().value(), _(expected.suffixes).sortBy().value());
+            assert.deepEqual(_(targets.templates).sortBy(function(temp) { return temp.targetName; }).value(),
+                        _(expected.templates).sortBy(function(temp) { return temp.targetName; }).value());
+        });
     });
 });

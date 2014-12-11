@@ -4,11 +4,13 @@
 [![Dependency Status](https://david-dm.org/thaiat/gulp-mux.svg)](https://david-dm.org/thaiat/gulp-mux) [![devDependency Status](https://david-dm.org/thaiat/gulp-mux/dev-status.svg)](https://david-dm.org/thaiat/gulp-mux#info=devDependencies) [![peerDependency Status](https://david-dm.org/thaiat/gulp-mux/peer-status.svg)](https://david-dm.org/thaiat/gulp-mux#info=peerDependencies)    
 
 
-> 
+> A gulp utility for registering and running tasks based on simple javascript functions requiring dynamically generated parameters. 
 
 [![NPM](https://nodei.co/npm/gulp-mux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-mux)
 
 ## Usage
+
+> It is intended for using gulp in a project that has a number of distribution targets, and is supplemented with a submodule to allow the user to specify which targets they want to use from the command line (with --target).
 
 
 ## Testing

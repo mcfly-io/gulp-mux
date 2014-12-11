@@ -1,6 +1,6 @@
 {
   "name": "gulp-mux",
-  "description": "A gulp utility for registering and running dynamic tasks based on simple javascript functions with parameters",
+  "description": "A gulp utility for registering and running tasks based on simple javascript functions requiring dynamically generated parameters",
   "version": "0.0.2",
   "license": "MIT",
   "main": "index.js",

@@ -1,4 +1,5 @@
 'use strict';
+
 var mux = require('./lib/mux');
 var targets = require('./lib/targets');
 

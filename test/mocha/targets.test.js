@@ -48,6 +48,5 @@ describe('targets', function() {
                 });
             }, 'The following targets were not found in the client folder: webx');
         });
-
     });
 });

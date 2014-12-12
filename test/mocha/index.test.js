@@ -19,4 +19,16 @@ describe('index', function() {
         assert.equal(typeof index.targets, 'object');
     });
 
+    it('should export targets.getAllTargets', function() {
+        assert.equal(typeof index.targets.getAllTargets, 'function');
+    });
+
+    it('should export targets.setClientFolder', function() {
+        assert.equal(typeof index.targets.setClientFolder, 'function');
+    });
+
+    it('should export targets.askForTargets', function() {
+        assert.equal(typeof index.targets.askForTargets, 'function');
+    });
+
 });

@@ -125,6 +125,11 @@ describe('mux', function() {
 
         });
 
+        it('with target as a single string should transform to array and succeed', function() {
+            var tasks = mux.createTasks(this.gulp, this.copy, 'copy', 'web', this.constants);
+            assert.lengthOf(tasks, 1);
+        });
+
         it('with no name should succeed', function() {
 
             var tasks = mux.createTasks(this.gulp, this.copy, null, this.targets, this.constants);

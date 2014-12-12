@@ -3,10 +3,11 @@
 var targets = require('../../lib/targets');
 var _ = require('lodash');
 
+var clientFolder = './test/mocha/asset';
 describe('targets', function() {
 
     beforeEach(function() {
-        targets.setClientFolder('./test/mocha/asset');
+        targets.setClientFolder(clientFolder);
         this.expectedTargets = ['app', 'mobile', 'web'];
     });
 
@@ -46,7 +47,7 @@ describe('targets', function() {
                 targets.checkTargets({
                     target: ['app', 'webx']
                 });
-            }, 'The following targets were not found in the client folder: webx');
+            }, 'The following targets were not found in the folder "' + clientFolder + '": webx');
         });
     });
 });

@@ -1,2 +1,11 @@
 'use strict';
-module.exports.maths = require('./lib/maths');
+
+var mux = require('./lib/mux');
+var targets = require('./lib/targets');
+
+module.exports = mux;
+
+module.exports.targets = {
+    getAllTargets: targets.getAllTargets,
+    askForTargets: targets.askForTargets
+};

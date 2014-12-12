@@ -107,43 +107,31 @@ describe('mux', function() {
 
     describe('#createTasks', function() {
         beforeEach(function() {
-            var gulp = this.gulp = sinon.spy();
-            gulp.tasks = [];
-            gulp.task = function(name, fn) {
-                gulp.tasks.push({
-                    name: name,
-                    fn: fn
-                });
-            };
-
             this.gulp = require('gulp');
             this.copy = function(constants) {
                 return constants;
             };
-            this.targets = [{
-                targetName: 'web',
-                targetSuffix: '-web'
-            }, {
-                targetName: 'mobile',
-                targetSuffix: '-mobile'
-            }];
+            this.targets = ['app', 'mobile', 'web'];
         });
 
         it('should succeed', function() {
 
             var tasks = mux.createTasks(this.gulp, this.copy, 'copy', this.targets, this.constants);
-            assert.lengthOf(tasks, 2);
-            assert.deepEqual(this.gulp.tasks[tasks[0]].fn(), mux.resolveConstants(this.constants, this.targets[0]));
-            assert.deepEqual(this.gulp.tasks[tasks[1]].fn(), mux.resolveConstants(this.constants, this.targets[1]));
+            assert.lengthOf(tasks, 3);
+
+            assert.equal(this.gulp.tasks[tasks[0]].fn().browserify.src, './www/scripts/main.js');
+            assert.equal(this.gulp.tasks[tasks[1]].fn().browserify.src, './www/scripts/main-mobile.js');
+            assert.equal(this.gulp.tasks[tasks[2]].fn().browserify.src, './www/scripts/main-web.js');
 
         });
 
         it('with no name should succeed', function() {
 
             var tasks = mux.createTasks(this.gulp, this.copy, null, this.targets, this.constants);
-            assert.lengthOf(tasks, 2);
-            assert.deepEqual(this.gulp.tasks[tasks[0]].fn(), mux.resolveConstants(this.constants, this.targets[0]));
-            assert.deepEqual(this.gulp.tasks[tasks[1]].fn(), mux.resolveConstants(this.constants, this.targets[1]));
+            assert.lengthOf(tasks, 3);
+            assert.equal(this.gulp.tasks[tasks[0]].fn().browserify.src, './www/scripts/main.js');
+            assert.equal(this.gulp.tasks[tasks[1]].fn().browserify.src, './www/scripts/main-mobile.js');
+            assert.equal(this.gulp.tasks[tasks[2]].fn().browserify.src, './www/scripts/main-web.js');
 
         });
 

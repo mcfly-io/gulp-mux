@@ -1,40 +1,53 @@
 'use strict';
 
 var targets = require('../../lib/targets');
+var _ = require('lodash');
 
 describe('targets', function() {
-    var clientFolder = 'www';
-    var defaultTarget = 'app';
-
-    it('should throw an error when called without clientFolder', function() {
-        assert.throws(targets, Error);
-    });
-
-    it('should throw an error when called with falsey clientFolder', function() {
-        assert.throws(targets.bind(null, ''), Error);
-    });
-
-    it('should throw an error when called with falsey clientFolder but a valid defaultTarget', function() {
-        assert.throws(targets.bind(null, '', 'app'), Error);
-    });
-
-    it('should succeed when called with a valid clientFolder', function() {
-        assert.ok(targets.bind(null, clientFolder));
-    });
-
-    it('should succeed when called with a valid clientFolder and defaultTarget', function() {
-        assert.ok(targets.bind(null, clientFolder, defaultTarget));
-    });
 
     beforeEach(function() {
-        this.constants = require('./asset/constants.js');
-
-        this.add = function(a, b) {
-            return a + b;
-        };
+        targets.setClientFolder('./test/mocha/asset');
+        this.expectedTargets = ['app', 'mobile', 'web'];
     });
 
-    xit('should throw an error when called without passing a clientFolder argument.', function() {
-        assert.throws(targets, /clientFolder\ constant\ not\ set/);
+    describe('#getAllTargets()', function() {
+        it('should succeed', function() {
+            var allTargets = targets.getAllTargets();
+            assert.deepEqual(allTargets, this.expectedTargets);
+        });
+    });
+
+    describe('#askForTargets()', function() {
+        it('should return object args', function() {
+            var args = targets.askForTargets();
+            assert(_.isObject(args));
+        });
+    });
+
+    describe('#checkTargets()', function() {
+        it('with no args.target should succeed', function() {
+            assert.doesNotThrow(function() {
+                targets.checkTargets({});
+            });
+
+        });
+
+        it('with valid args.target should succeed', function() {
+            assert.doesNotThrow(function() {
+                targets.checkTargets({
+                    target: ['app', 'web']
+                });
+            });
+
+        });
+
+        it('with unfound args.target should throw Error', function() {
+            assert.throws(function() {
+                targets.checkTargets({
+                    target: ['app', 'webx']
+                });
+            }, 'The following targets were not found in the client folder: webx');
+        });
+
     });
 });

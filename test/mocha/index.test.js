@@ -16,7 +16,7 @@ describe('index', function() {
     });
 
     it('should export targets', function() {
-        assert.equal(typeof index.targets, 'function');
+        assert.equal(typeof index.targets, 'object');
     });
 
 });

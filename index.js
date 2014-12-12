@@ -1,3 +1,10 @@
 'use strict';
-module.exports = require('./lib/mux');
-module.exports.targets = require('./lib/targets');
+var mux = require('./lib/mux');
+var targets = require('./lib/targets');
+
+module.exports = mux;
+
+module.exports.targets = {
+    getAllTargets: targets.getAllTargets,
+    askForTargets: targets.askForTargets
+};

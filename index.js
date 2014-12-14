@@ -7,6 +7,7 @@ module.exports = mux;
 
 module.exports.targets = {
     getAllTargets: targets.getAllTargets,
-    askForTargets: targets.askForTargets,
+    askForMultipleTargets: targets.askForMultipleTargets,
+    askForSingleTarget: targets.askForSingleTarget,
     setClientFolder: targets.setClientFolder
 };

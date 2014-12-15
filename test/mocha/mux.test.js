@@ -1,10 +1,9 @@
 'use strict';
 
 var mux = require('../../lib/mux.js');
+var _ = require('lodash');
 
 describe('mux', function() {
-    var clientFolder = 'www';
-
     beforeEach(function() {
         this.constants = require('./asset/constants.js');
         this.add = function(a, b) {
@@ -14,15 +13,35 @@ describe('mux', function() {
 
     describe('#resolveConstants()', function() {
         beforeEach(function() {
-
+            this.templateData = {
+                targetName: 'web',
+                targetSuffix: '-web',
+                mode: 'prod'
+            };
         });
 
         it('should succeed', function() {
-            var ret = mux.resolveConstants(this.constants, {
-                targetName: 'web',
-                targetSuffix: '-web'
-            });
-            assert.deepEqual(ret.style.sass.src, ['./' + clientFolder + '/styles/main-web.scss']);
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.deepEqual(ret.targetName, this.templateData.targetName);
+            assert.deepEqual(ret.targetSuffix, this.templateData.targetSuffix);
+            assert.deepEqual(ret.mode, this.templateData.mode);
+        });
+
+        it('should correctly return bool ', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.ok(_.isBoolean(ret.boolValue));
+            assert.deepEqual(ret.boolValue, true);
+        });
+
+        it('should correctly return float', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.deepEqual(ret.floatValue, 3.5);
+        });
+
+        it('should correctly return array', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.ok(_.isArray(ret.arrayValue));
+            assert.deepEqual(ret.arrayValue, [this.templateData.targetName, this.templateData.targetName]);
         });
 
         it('with constants null should return null', function() {
@@ -37,7 +56,10 @@ describe('mux', function() {
 
         it('with target null should return original constants', function() {
             var ret = mux.resolveConstants(this.constants);
-            assert.deepEqual(ret.style.sass.src, ['./' + clientFolder + '/styles/main.scss']);
+            assert.equal(ret.targetName, '');
+            assert.equal(ret.targetSuffix, '');
+            assert.equal(ret.mode, '');
+
         });
     });
 
@@ -112,16 +134,17 @@ describe('mux', function() {
                 return constants;
             };
             this.targets = ['app', 'mobile', 'web'];
+            this.mode = 'prod';
         });
 
         it('should succeed', function() {
 
-            var tasks = mux.createTasks(this.gulp, this.copy, 'copy', this.targets, this.constants);
+            var tasks = mux.createTasks(this.gulp, this.copy, 'copy', this.targets, this.mode, this.constants);
             assert.lengthOf(tasks, 3);
 
-            assert.equal(this.gulp.tasks[tasks[0]].fn().browserify.src, './www/scripts/main.js');
-            assert.equal(this.gulp.tasks[tasks[1]].fn().browserify.src, './www/scripts/main-mobile.js');
-            assert.equal(this.gulp.tasks[tasks[2]].fn().browserify.src, './www/scripts/main-web.js');
+            assert.equal(this.gulp.tasks[tasks[0]].fn().targetSuffix, '');
+            assert.equal(this.gulp.tasks[tasks[1]].fn().targetSuffix, '-mobile');
+            assert.equal(this.gulp.tasks[tasks[2]].fn().targetSuffix, '-web');
 
         });
 
@@ -132,17 +155,17 @@ describe('mux', function() {
 
         it('with no name should succeed', function() {
 
-            var tasks = mux.createTasks(this.gulp, this.copy, null, this.targets, this.constants);
+            var tasks = mux.createTasks(this.gulp, this.copy, null, this.targets, this.mode, this.constants);
             assert.lengthOf(tasks, 3);
-            assert.equal(this.gulp.tasks[tasks[0]].fn().browserify.src, './www/scripts/main.js');
-            assert.equal(this.gulp.tasks[tasks[1]].fn().browserify.src, './www/scripts/main-mobile.js');
-            assert.equal(this.gulp.tasks[tasks[2]].fn().browserify.src, './www/scripts/main-web.js');
+            assert.equal(this.gulp.tasks[tasks[0]].fn().targetSuffix, '');
+            assert.equal(this.gulp.tasks[tasks[1]].fn().targetSuffix, '-mobile');
+            assert.equal(this.gulp.tasks[tasks[2]].fn().targetSuffix, '-web');
 
         });
 
         it('with null fn should throw Error', function() {
             assert.throws(function() {
-                mux.createTasks(this.gulp, null, 'copy', this.targets, this.constants);
+                mux.createTasks(this.gulp, null, 'copy', this.targets, this.mode, this.constants);
             }.bind(this), Error);
 
         });

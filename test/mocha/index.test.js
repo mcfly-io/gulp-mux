@@ -27,8 +27,11 @@ describe('index', function() {
         assert.equal(typeof index.targets.setClientFolder, 'function');
     });
 
-    it('should export targets.askForTargets', function() {
-        assert.equal(typeof index.targets.askForTargets, 'function');
+    it('should export targets.askForMultipleTargets', function() {
+        assert.equal(typeof index.targets.askForMultipleTargets, 'function');
     });
 
+    it('should export targets.askForSingleTarget', function() {
+        assert.equal(typeof index.targets.askForSingleTarget, 'function');
+    });
 });

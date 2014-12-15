@@ -18,10 +18,16 @@ describe('targets', function() {
         });
     });
 
-    describe('#askForTargets()', function() {
-        it('should return object args', function() {
-            var args = targets.askForTargets();
+    describe('#askFor', function() {
+        xit('should return object args', function(done) {
+            var args = require('../../lib/targets').askForMultipleTargets('multiple');
             assert(_.isObject(args));
+            done();
+        });
+        it('should return object args', function(done) {
+            var args = require('../../lib/targets').askForSingleTarget('single');
+            assert(_.isObject(args));
+            done();
         });
     });
 
@@ -49,5 +55,40 @@ describe('targets', function() {
                 });
             }, 'The following targets were not found in the folder "' + clientFolder + '": webx');
         });
+    });
+
+    describe('#checkSingleTarget', function() {
+        it('with no args.target should succeed', function() {
+            assert.doesNotThrow(function() {
+                targets.checkSingleTarget({});
+            });
+
+        });
+
+        it('with multiple targets should throw Error', function() {
+            assert.throws(function() {
+                targets.checkSingleTarget({
+                    target: ['app', 'webx']
+                });
+            }, 'The following targets were not found in the folder "' + clientFolder + '": webx');
+        });
+
+        it('with valid args.target should succeed', function() {
+            assert.throws(function() {
+                targets.checkSingleTarget({
+                    target: ['app', 'web']
+                });
+            }, 'Only a single target can be used with this task, instead got: app,web');
+
+        });
+
+        it('with unfound args.target should throw Error', function() {
+            assert.throws(function() {
+                targets.checkSingleTarget({
+                    target: ['app', 'webx']
+                });
+            }, 'The following targets were not found in the folder "' + clientFolder + '": webx');
+        });
+
     });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 var mux = require('../../lib/mux.js');
+var _ = require('lodash');
 
 describe('mux', function() {
     beforeEach(function() {
@@ -12,19 +13,35 @@ describe('mux', function() {
 
     describe('#resolveConstants()', function() {
         beforeEach(function() {
-
-        });
-
-        it('should succeed', function() {
-            var templateData = {
+            this.templateData = {
                 targetName: 'web',
                 targetSuffix: '-web',
                 mode: 'prod'
             };
-            var ret = mux.resolveConstants(this.constants, templateData);
-            assert.deepEqual(ret.targetName, templateData.targetName);
-            assert.deepEqual(ret.targetSuffix, templateData.targetSuffix);
-            assert.deepEqual(ret.mode, templateData.mode);
+        });
+
+        it('should succeed', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.deepEqual(ret.targetName, this.templateData.targetName);
+            assert.deepEqual(ret.targetSuffix, this.templateData.targetSuffix);
+            assert.deepEqual(ret.mode, this.templateData.mode);
+        });
+
+        it('should correctly return bool ', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.ok(_.isBoolean(ret.boolValue));
+            assert.deepEqual(ret.boolValue, true);
+        });
+
+        it('should correctly return float', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.deepEqual(ret.floatValue, 3.5);
+        });
+
+        it('should correctly return array', function() {
+            var ret = mux.resolveConstants(this.constants, this.templateData);
+            assert.ok(_.isArray(ret.arrayValue));
+            assert.deepEqual(ret.arrayValue, [this.templateData.targetName, this.templateData.targetName]);
         });
 
         it('with constants null should return null', function() {

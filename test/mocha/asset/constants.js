@@ -14,5 +14,9 @@ module.exports = {
     clientFolder: clientFolder,
     targetName: '{{targetName}}',
     targetSuffix: '{{targetSuffix}}',
-    mode: '{{mode}}'
+    mode: '{{mode}}',
+
+    boolValue: true,
+    floatValue: 3.5,
+    arrayValue: ['{{targetName}}', '{{targetName}}']
 };

@@ -52,3 +52,7 @@ plugins/
 
 # Changelog
 CHANGELOG.md
+
+# JSDoc config json and output
+jsdocConf.json
+out

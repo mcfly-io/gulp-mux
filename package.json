@@ -1,7 +1,7 @@
 {
   "name": "gulp-mux",
   "description": "A gulp utility for registering and running tasks based on simple javascript functions requiring dynamically generated parameters",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "main": "index.js",
   "repository": "thaiat/gulp-mux",

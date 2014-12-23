@@ -11,7 +11,7 @@ describe('mux', function() {
         };
     });
 
-    describe('#resolveConstants()', function() {
+    describe('resolveConstants()', function() {
         beforeEach(function() {
             this.templateData = {
                 targetName: 'web',
@@ -20,7 +20,7 @@ describe('mux', function() {
             };
         });
 
-        it('should succeed', function() {
+        it('with valid arguments should succeed', function() {
             var ret = mux.resolveConstants(this.constants, this.templateData);
             assert.deepEqual(ret.targetName, this.templateData.targetName);
             assert.deepEqual(ret.targetSuffix, this.templateData.targetSuffix);
@@ -63,13 +63,13 @@ describe('mux', function() {
         });
     });
 
-    describe('#createSingleFn', function() {
+    describe('createSingleFn()', function() {
 
         beforeEach(function() {
 
         });
 
-        it('#createSingleFn() should succeed', function() {
+        it('with valid arguments should succeed', function() {
             var ret = mux.createSingleFn(this.add, 12, 13);
             assert.equal(ret(), 25);
         });
@@ -127,7 +127,7 @@ describe('mux', function() {
         });
     });
 
-    describe('#createTasks', function() {
+    describe('createTasks()', function() {
         beforeEach(function() {
             this.gulp = require('gulp');
             this.copy = function(constants) {
@@ -137,7 +137,7 @@ describe('mux', function() {
             this.mode = 'prod';
         });
 
-        it('should succeed', function() {
+        it('with valid arguments should succeed', function() {
 
             var tasks = mux.createTasks(this.gulp, this.copy, 'copy', this.targets, this.mode, this.constants);
             assert.lengthOf(tasks, 3);
@@ -167,6 +167,30 @@ describe('mux', function() {
             assert.throws(function() {
                 mux.createTasks(this.gulp, null, 'copy', this.targets, this.mode, this.constants);
             }.bind(this), Error);
+
+        });
+
+    });
+
+    describe('createAndRunTasks()', function() {
+        beforeEach(function() {
+            this.gulp = require('gulp');
+            this.copy = sinon.spy(function(constants) {
+                return constants;
+            });
+            this.targets = ['app', 'mobile', 'web'];
+            this.mode = 'prod';
+        });
+
+        it('with valid arguments should succeed', function() {
+            var cb = sinon.spy();
+            mux.createAndRunTasks(this.gulp, this.copy, 'copy', this.targets, this.mode, this.constants, cb);
+            assert(this.copy.called);
+            assert.equal(this.copy.callCount, 3);
+            assert(cb.called);
+            assert(this.copy.getCall(0).returnValue.targetName = this.targets[0]);
+            assert(this.copy.getCall(1).returnValue.targetName = this.targets[1]);
+            assert(this.copy.getCall(2).returnValue.targetName = this.targets[2]);
 
         });
 

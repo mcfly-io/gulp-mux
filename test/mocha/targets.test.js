@@ -2,8 +2,8 @@
 
 var targets = require('../../lib/targets');
 var _ = require('lodash');
-
 var clientFolder = './test/mocha/asset';
+
 describe('targets', function() {
 
     beforeEach(function() {
@@ -11,27 +11,30 @@ describe('targets', function() {
         this.expectedTargets = ['app', 'mobile', 'web'];
     });
 
-    describe('#getAllTargets()', function() {
+    describe('getAllTargets()', function() {
         it('should succeed', function() {
             var allTargets = targets.getAllTargets();
             assert.deepEqual(allTargets, this.expectedTargets);
         });
     });
 
-    describe('#askFor', function() {
-        xit('should return object args', function(done) {
-            var args = require('../../lib/targets').askForMultipleTargets('multiple');
+    describe('askFor()', function() {
+
+        it('askForMultipleTargets() should return object args', function() {
+
+            var args = targets.askForMultipleTargets('multiple');
             assert(_.isObject(args));
-            done();
+            //done();
         });
-        it('should return object args', function(done) {
-            var args = require('../../lib/targets').askForSingleTarget('single');
+
+        it('askForSingleTarget() should return object args', function() {
+            var args = targets.askForSingleTarget('single');
             assert(_.isObject(args));
-            done();
+            //done();
         });
     });
 
-    describe('#checkTargets()', function() {
+    describe('checkTargets()', function() {
         it('with no args.target should succeed', function() {
             assert.doesNotThrow(function() {
                 targets.checkTargets({});
@@ -55,9 +58,27 @@ describe('targets', function() {
                 });
             }, 'The following targets were not found in the folder "' + clientFolder + '": webx');
         });
+
+        it('with not string args.mode should throw Error', function() {
+            assert.throws(function() {
+                targets.checkTargets({
+                    target: ['app', 'web'],
+                    mode: {}
+                });
+            }, 'mode should be a string instead of: [object Object]');
+        });
+
+        it('with unknown args.mode should throw Error', function() {
+            assert.throws(function() {
+                targets.checkTargets({
+                    target: ['app', 'web'],
+                    mode: 'dummy'
+                });
+            }, 'valid values for mode are "prod" or "dev",  instead got: dummy');
+        });
     });
 
-    describe('#checkSingleTarget', function() {
+    describe('checkSingleTarget()', function() {
         it('with no args.target should succeed', function() {
             assert.doesNotThrow(function() {
                 targets.checkSingleTarget({});
@@ -91,4 +112,5 @@ describe('targets', function() {
         });
 
     });
+
 });

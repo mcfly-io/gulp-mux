@@ -16,10 +16,11 @@ gulp.task('mocha', 'Runs the mocha tests.', function() {
         }))
         .pipe(istanbul.hookRequire())
         .on('finish', function() {
+            gutil.log(__dirname);
             gulp.src(constants.mocha.tests)
                 .pipe(mocha({
                     reporter: 'spec',
-                    globals: './test/helpers/global.js',
+                    globals: constants.mocha.globals,
                     timeout: constants.mocha.timeout
                 }))
                 .pipe(istanbul.writeReports({

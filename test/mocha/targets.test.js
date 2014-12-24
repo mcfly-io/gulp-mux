@@ -19,9 +19,7 @@ describe('targets', function() {
     });
 
     describe('askFor()', function() {
-
         it('askForMultipleTargets() should return object args', function() {
-
             var args = targets.askForMultipleTargets('multiple');
             assert(_.isObject(args));
             //done();

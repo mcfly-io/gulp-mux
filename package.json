@@ -45,6 +45,7 @@
     "marked": "^0.3.2",
     "mocha": "^2.0.1",
     "mocha-lcov-reporter": "0.0.1",
+    "mockery": "^1.4.0",
     "node-jsxml": "^0.6.0",
     "q": "^1.1.2",
     "require-dir": "^0.1.0",

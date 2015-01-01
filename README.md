@@ -161,6 +161,7 @@ var taskCopy = function(constant) {
 
 gulp.task('copy:all', function() {
     return gmux.createAndRunTasks(gulp, taskCopy, 'copy', targets, '', constants);
+});
 ```
 When we stick it into a project tree that looks like this:
 ```zsh

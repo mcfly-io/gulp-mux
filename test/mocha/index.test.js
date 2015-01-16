@@ -34,4 +34,12 @@ describe('index', function() {
     it('should export targets.askForSingleTarget', function() {
         assert.equal(typeof index.targets.askForSingleTarget, 'function');
     });
+
+    it('should export targets.targetToSuffix', function() {
+        assert.equal(typeof index.targets.targetToSuffix, 'function');
+    });
+
+    it('should export targets.basenameToTarget', function() {
+        assert.equal(typeof index.targets.basenameToTarget, 'function');
+    });
 });

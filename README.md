@@ -217,6 +217,12 @@ We can run `gulp copy:all` from the command line and see that our files have bee
 
 This function tells `gulp-mux` which folder contains `index*.html` files that define which targets are available. If a client folder is not provided, the module will assume that the client folder is called `client` and is located in the root directory of your project.
 
+#### `targetToSuffix(targetname)`
+> *Gets the suffix name of a specific target*
+
+#### `basenameToTarget(basename)`
+> *Gets the target name of a target file*
+
 #### `getAllTargets()`
 > *Inspect the client folder set with `setClientFolder` for files with a name that matches `index-<target>.html`. An array of `<target>` names is returned.*
 

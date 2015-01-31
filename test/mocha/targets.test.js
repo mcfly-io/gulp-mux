@@ -16,6 +16,12 @@ describe('targets', function() {
             var allTargets = targets.getAllTargets();
             assert.deepEqual(allTargets, this.expectedTargets);
         });
+
+        it('should return [\'app\'] when no index file is present', function() {
+            targets.setClientFolder('.');
+            var allTargets = targets.getAllTargets();
+            assert.deepEqual(allTargets, ['app']);
+        });
     });
 
     describe('askFor()', function() {

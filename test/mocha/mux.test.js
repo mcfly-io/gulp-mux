@@ -201,20 +201,20 @@ describe('mux', function() {
         it('with an array should succeed', function() {
             var folders = ['./client/dummy/file1.js', './client/dummy/file2.js', 'client/dummy/file3.js'];
             var expectedFolders = ['client/dummy/file1.js', 'client/dummy/file2.js', 'client/dummy/file3.js'];
-            var sanitizeFolders = mux.getWatchFolders(folders);
+            var sanitizeFolders = mux.sanitizeWatchFolders(folders);
             assert.deepEqual(sanitizeFolders, expectedFolders);
         });
 
         it('with a string should succeed', function() {
             var folder = './client/dummy/file1.js';
             var expectedFolder = 'client/dummy/file1.js';
-            var sanitizeFolder = mux.getWatchFolders(folder);
+            var sanitizeFolder = mux.sanitizeWatchFolders(folder);
             assert.equal(sanitizeFolder, expectedFolder);
         });
 
         it('with a null should return null', function() {
             var expectedFolder = null;
-            var sanitizeFolder = mux.getWatchFolders(null);
+            var sanitizeFolder = mux.sanitizeWatchFolders(null);
             assert.equal(sanitizeFolder, expectedFolder);
         });
     });

@@ -15,6 +15,10 @@ describe('index', function() {
         assert.equal(typeof index.createAndRunTasks, 'function');
     });
 
+    it('should export mux.createAndRunTasksSequential', function() {
+        assert.equal(typeof index.createAndRunTasksSequential, 'function');
+    });
+
     it('should export mux.sanitizeWatchFolders', function() {
         assert.equal(typeof index.sanitizeWatchFolders, 'function');
     });

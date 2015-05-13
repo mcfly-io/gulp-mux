@@ -6,6 +6,7 @@ var targets = require('./lib/targets');
 module.exports = {
     resolveConstants: mux.resolveConstants,
     createAndRunTasks: mux.createAndRunTasks,
+    createAndRunTasksSequential: mux.createAndRunTasksSequential,
     sanitizeWatchFolders: mux.sanitizeWatchFolders
 };
 

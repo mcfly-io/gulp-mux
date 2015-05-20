@@ -31,9 +31,75 @@ describe('targets', function() {
             //done();
         });
 
+        it('askForMultipleTargets() should accept overrides', function() {
+            var mode = 'prod';
+            var target = ['web', 'mobile'];
+            var args = targets.askForMultipleTargets('multiple', {
+                mode: mode,
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.equal(args.mode, mode);
+            assert.deepEqual(args.target, target);
+            //done();
+        });
+
+        it('askForMultipleTargets() should wrap string target overrides', function() {
+            var target = 'web';
+            var args = targets.askForMultipleTargets('multiple', {
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.deepEqual(args.target, [target]);
+            //done();
+        });
+
+        it('askForMultipleTargets() should ignore empty target string overrides', function() {
+            var target = '';
+            var args = targets.askForMultipleTargets('multiple', {
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.deepEqual(args.target, this.expectedTargets);
+            //done();
+        });
+
+        it('askForMultipleTargets() should ignore empty target array overrides', function() {
+            var target = [];
+            var args = targets.askForMultipleTargets('multiple', {
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.deepEqual(args.target, this.expectedTargets);
+            //done();
+        });
+
         it('askForSingleTarget() should return object args', function() {
             var args = targets.askForSingleTarget('single');
             assert(_.isObject(args));
+            //done();
+        });
+
+        it('askForSingleTarget() should accept overrides', function() {
+            var mode = 'prod';
+            var target = 'web';
+            var args = targets.askForSingleTarget('multiple', {
+                mode: mode,
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.equal(args.mode, mode);
+            assert.deepEqual(args.target, target);
+            //done();
+        });
+
+        it('askForSingleTarget() should ignore empty target string overrides', function() {
+            var target = '';
+            var args = targets.askForSingleTarget('multiple', {
+                target: target
+            });
+            assert(_.isObject(args));
+            assert.deepEqual(args.target, [].concat(this.expectedTargets[0]));
             //done();
         });
     });

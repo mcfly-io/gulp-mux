@@ -5,7 +5,6 @@ var $ = require('gulp-load-plugins')();
 var mocha = $.mocha;
 var istanbul = $.istanbul;
 var gutil = require('gulp-util');
-var chalk = require('chalk');
 
 var constants = require('../common/constants')();
 

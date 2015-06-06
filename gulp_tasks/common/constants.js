@@ -1,7 +1,5 @@
 'use strict';
 
-var path = require('path');
-
 module.exports = function() {
     var cwd = process.env.INIT_CWD || '';
 

@@ -169,7 +169,7 @@ var githubAuthSetupAndTestAsync = function(result) {
 gulp.task('githubAuth', false, function(cb) {
     return gitGetEmailAsync()
         .then(githubUsernameAsync)
-        .fail(function(err) {
+        .fail(function() {
             //gutil.log(gutil.colors.red(err));
             return null;
         })

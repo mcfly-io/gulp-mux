@@ -170,7 +170,7 @@ gulp.task('githubAuth', false, function(cb) {
     return gitGetEmailAsync()
         .then(githubUsernameAsync)
         .fail(function(err) {
-            gutil.log(gutil.colors.red(err));
+            //gutil.log(gutil.colors.red(err));
             return null;
         })
         .then(function(username) {

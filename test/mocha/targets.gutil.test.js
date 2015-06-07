@@ -2,8 +2,8 @@
 
 var mockery = require('mockery');
 var testHelper = require('./testHelper')();
+var chalk = require('gulp-util').colors;
 var targets;
-var chalk = require('chalk');
 var clientFolder = './test/mocha/asset';
 
 describe('askFor() properly logs', function() {

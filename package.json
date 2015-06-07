@@ -9,7 +9,6 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "chalk": "1.0.0",
     "gulp-util": "3.0.5",
     "lodash": "3.9.3",
     "randomstring": "1.0.6",

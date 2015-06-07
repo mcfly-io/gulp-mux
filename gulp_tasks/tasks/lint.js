@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var map = require('map-stream');
 var combine = require('stream-combiner');
-var chalk = require('chalk');
 var _ = require('lodash');
 var jshint = $.jshint;
 var jscs = $.jscs;
@@ -31,13 +30,13 @@ gulp.task('jshint', false, function() {
         .pipe(jshint.reporter('jshint-stylish'))
         .pipe(jshint.reporter('fail'))
         .on('error', function() {
-            gutil.log(chalk.red('Jshint failed'));
+            gutil.log(gutil.colors.red('Jshint failed'));
             throw new Error('jshint failed');
         })
         .pipe(map(function() {
             if(!hasError && !hasShown) {
                 hasShown = true;
-                gutil.log(chalk.green('All Jshint files passed'));
+                gutil.log(gutil.colors.green('All Jshint files passed'));
 
             }
 
@@ -54,14 +53,14 @@ gulp.task('jscs', false, function() {
         hasError = true;
 
         gutil.log(err.toString());
-        gutil.log(chalk.red('Jscs failed'));
+        gutil.log(gutil.colors.red('Jscs failed'));
 
         throw new Error('jscs failed');
     });
 
     combined.on('end', function() {
         if(!hasError) {
-            gutil.log(chalk.green('All Jscs files passed'));
+            gutil.log(gutil.colors.green('All Jscs files passed'));
 
         }
     });
@@ -85,10 +84,10 @@ gulp.task('eslint', false, function() {
         .on('end', function() {
             if(!hasError && !hasShown) {
                 hasShown = true;
-                gutil.log(chalk.green('All EsLint files passed'));
+                gutil.log(gutil.colors.green('All EsLint files passed'));
 
             } else {
-                gutil.log(chalk.red('EsLint failed'));
+                gutil.log(gutil.colors.red('EsLint failed'));
 
                 throw new Error('eslint failed');
             }
@@ -130,11 +129,11 @@ gulp.task('static', false, function() {
         .pipe(eslint.failOnError())
         .on('end', function() {
             if(status.hasError) {
-                gutil.log(chalk.red('lint failed'));
+                gutil.log(gutil.colors.red('lint failed'));
                 throw new Error('lint_error');
 
             } else {
-                gutil.log(chalk.green('All lint files passed'));
+                gutil.log(gutil.colors.green('All lint files passed'));
 
             }
         });

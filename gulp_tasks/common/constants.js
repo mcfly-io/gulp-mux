@@ -6,7 +6,7 @@ module.exports = function() {
     var constants = {
         cwd: cwd,
 
-        repository: 'https://github.com/thaiat/gulp-mux',
+        repository: 'https://github.com/mcfly-io/gulp-mux',
         versionFiles: ['./package.json', './bower.json'],
 
         lint: ['./lib/**/*.js', './index.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'test/**/*.js'],

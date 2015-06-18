@@ -4,7 +4,7 @@
   "version": "0.2.13",
   "license": "MIT",
   "main": "index.js",
-  "repository": "thaiat/gulp-mux",
+  "repository": "mcfly-io/gulp-mux",
   "scripts": {
     "test": "gulp test"
   },

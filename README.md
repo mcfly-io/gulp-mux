@@ -1,10 +1,10 @@
 # gulp-mux 
 [![NPM Version][npm-image]][npm-url] [![Downloads](http://img.shields.io/npm/dm/gulp-mux.svg)](http://badge.fury.io/js/gulp-mux)   
-[![Build Status](https://travis-ci.org/thaiat/gulp-mux.svg?branch=master)](https://travis-ci.org/thaiat/gulp-mux) [![Test Coverage](https://codeclimate.com/github/thaiat/gulp-mux/badges/coverage.svg)](https://codeclimate.com/github/thaiat/gulp-mux) [![Code Climate](https://codeclimate.com/github/thaiat/gulp-mux/badges/gpa.svg)](https://codeclimate.com/github/thaiat/gulp-mux)   
-[![Dependency Status](https://david-dm.org/thaiat/gulp-mux.svg)](https://david-dm.org/thaiat/gulp-mux) [![devDependency Status](https://david-dm.org/thaiat/gulp-mux/dev-status.svg)](https://david-dm.org/thaiat/gulp-mux#info=devDependencies) [![peerDependency Status](https://david-dm.org/thaiat/gulp-mux/peer-status.svg)](https://david-dm.org/thaiat/gulp-mux#info=peerDependencies)    
+[![Build Status](https://travis-ci.org/mcfly-io/gulp-mux.svg?branch=master)](https://travis-ci.org/mcfly-io/gulp-mux) [![Test Coverage](https://codeclimate.com/github/mcfly-io/gulp-mux/badges/coverage.svg)](https://codeclimate.com/github/mcfly-io/gulp-mux) [![Code Climate](https://codeclimate.com/github/mcfly-io/gulp-mux/badges/gpa.svg)](https://codeclimate.com/github/mcfly-io/gulp-mux)   
+[![Dependency Status](https://david-dm.org/mcfly-io/gulp-mux.svg)](https://david-dm.org/mcfly-io/gulp-mux) [![devDependency Status](https://david-dm.org/mcfly-io/gulp-mux/dev-status.svg)](https://david-dm.org/mcfly-io/gulp-mux#info=devDependencies) [![peerDependency Status](https://david-dm.org/mcfly-io/gulp-mux/peer-status.svg)](https://david-dm.org/mcfly-io/gulp-mux#info=peerDependencies)    
 
 
-Gulp-mux is a utility for registering and running tasks using gulp based on simple javascript functions requiring dynamically generated parameters. It was written for using gulp with `generator-angular-famous-ionic` but is useful in any project that employs gulp to manage several distribution targets or sub-apps. It contains a submodule to allow the user to specify which targets they want to use when running a given task from the command line, as well as the mode they want to use when running it, i.e. `dev` or `prod`.
+Gulp-mux is a utility for registering and running tasks using gulp based on simple javascript functions requiring dynamically generated parameters. It was written for using gulp with `generator-mcfly` but is useful in any project that employs gulp to manage several distribution targets or sub-apps. It contains a submodule to allow the user to specify which targets they want to use when running a given task from the command line, as well as the mode they want to use when running it, i.e. `dev` or `prod`.
 
 
 [![NPM](https://nodei.co/npm/gulp-mux.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-mux)
@@ -30,7 +30,7 @@ client
 ├── index.html
 └── ...
 ```
-*NB: This is part of  what is scaffolded by `yo angular-famous-ionic:target`*
+*NB: This is part of  what is scaffolded by `yo mcfly:target`*
 
 Once `gulp-mux` has inspected the client folder it finds that four targets are available: the three mentioned previously, `apitool`, `mobile`, and `web`, as well as the default target `app` from `index.html`. Running `getAllTargets` gives us these targets in an array:
 
@@ -270,7 +270,7 @@ This will tell mocha to run only the tests located in `test/app.test.js` (The -r
 
 ## Changelog
 
-Recent changes can be viewed on Github on the [Releases Page](https://github.com/thaiat/gulp-mux/releases)
+Recent changes can be viewed on Github on the [Releases Page](https://github.com/mcfly-io/gulp-mux/releases)
 
 ## License
 

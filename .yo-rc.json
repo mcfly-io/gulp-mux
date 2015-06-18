@@ -1,5 +1,5 @@
 {
-  "generator-angular-famous-ionic": {
+  "generator-mcfly": {
     "clientFolder": "client",
     "ionic": false,
     "famous": false,

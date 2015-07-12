@@ -1,9 +1,11 @@
 'use strict';
 
+var gulp = require('gulp');
 var fs = require('fs');
 var gutil = require('gulp-util');
 var stripJsonComments = require('strip-json-comments');
 var _ = require('lodash');
+var es = require('event-stream');
 var path = require('path');
 
 /**
@@ -23,13 +25,13 @@ var isMobile = function(constants) {
  * @param  {String} stderr - The stderr string
  */
 var execHandler = function(err, stdout, stderr) {
-    if(err) {
+    if (err) {
         gutil.log(gutil.colors.red('An error occured executing a command line action'));
     }
-    if(stdout) {
+    if (stdout) {
         gutil.log(stdout);
     }
-    if(stderr) {
+    if (stderr) {
         gutil.log(gutil.colors.red('Error: ') + stderr);
     }
 };
@@ -50,10 +52,24 @@ var filterFiles = function(files, extension) {
     });
 };
 
+/**
+ * Add new sources in a gulp pipeline
+ * @returns {Stream} A gulp stream
+ * @example
+ * gulp.src('')
+ * .pipe(addSrc('CHANGELOG.md'))
+ * .gulp.dest();
+ */
+var addSrc = function() {
+    var pass = es.through();
+    return es.duplex(pass, es.merge(gulp.src.apply(gulp.src, arguments), pass));
+};
+
 module.exports = {
     isMobile: isMobile,
     execHandler: execHandler,
     readTextFile: readTextFile,
     readJsonFile: readJsonFile,
-    filterFiles: filterFiles
+    filterFiles: filterFiles,
+    addSrc: addSrc
 };

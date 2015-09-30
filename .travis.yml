@@ -9,6 +9,7 @@ cache:
 
 before_script:
   - npm install -g gulp
+  - bower install
 
 after_success:
   - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < ./coverage/lcov.info

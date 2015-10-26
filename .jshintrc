@@ -2,6 +2,7 @@
   "globals": {
     "beforeEach": false,
     "before": false,
+    "beforeAll": false,
     "after": false,
     "afterEach": false,
     "afterAll": false,
@@ -22,11 +23,13 @@
     "sinon": false,
     "element": false,
     "by": false,
-    "browser": false
+    "browser": false,
+    "protractor": false
   },
   "predef": [
     "beforeEach",
     "before",
+    "beforeAll",
     "afterEach",
     "after",
     "afterAll",
@@ -47,7 +50,8 @@
     "sinon",
     "element",
     "by",
-    "browser"
+    "browser",
+    "protractor"
   ],
   "bitwise": true,
   "browser": true,

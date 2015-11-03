@@ -22,6 +22,7 @@ gulp.task('mocha', 'Runs the mocha tests.', function() {
                     timeout: constants.mocha.timeout
                 }))
                 .pipe(istanbul.writeReports({
+                    dir: './coverage/mocha',
                     reporters: ['lcov', 'json', 'text', 'text-summary', 'cobertura']
                 }));
         });

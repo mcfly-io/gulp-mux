@@ -9,7 +9,7 @@ module.exports = function() {
         repository: 'https://github.com/mcfly-io/gulp-mux',
         versionFiles: ['./package.json', './bower.json'],
 
-        lint: ['./lib/**/*.js', './index.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'test/**/*.js'],
+        lint: ['./lib/**/*.js', './index.js', 'gulpfile.js', 'gulp_tasks/**/*.js', 'test/**/*.js', './*.js'],
 
         mocha: {
             libs: ['lib/**/*.js', 'index.js'],

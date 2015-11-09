@@ -1,17 +1,14 @@
 #!/usr/bin/env node
 
 'use strict';
-
+global.Promise = require('bluebird');
 var child = require('child_process');
 var fs = require('fs');
 var util = require('util');
 var gutil = require('gulp-util');
-var q = require('q');
 var constants = require('./constants')();
-
 var GIT_LOG_CMD = 'git log --grep="%s" -E --format=%s %s..HEAD';
 var GIT_TAG_CMD = 'git describe --tags --abbrev=0';
-
 var HEADER_TPL = '<a name="%s"></a>\n# %s (%s)\n\n';
 var LINK_ISSUE = '[#%s](' + constants.repository + '/issues/%s)';
 var LINK_COMMIT = '[%s](' + constants.repository + '/commit/%s)';
@@ -121,22 +118,22 @@ var printSection = function(stream, title, section, printCommitLinks) {
 };
 
 var readGitLog = function(grep, from) {
-    var deferred = q.defer();
-
-    child.exec(util.format(GIT_LOG_CMD, grep, '%H%n%s%n%b%n==END==', from), function(code, stdout) {
-        var commits = [];
-
-        stdout.split('\n==END==\n').forEach(function(rawCommit) {
-            var commit = parseRawCommit(rawCommit);
-            if (commit) {
-                commits.push(commit);
+    return new Promise(function(resolve, reject) {
+        child.exec(util.format(GIT_LOG_CMD, grep, '%H%n%s%n%b%n==END==', from), function(error, stdout) {
+            if (error) {
+                reject(error);
+            } else {
+                var commits = [];
+                stdout.split('\n==END==\n').forEach(function(rawCommit) {
+                    var commit = parseRawCommit(rawCommit);
+                    if (commit) {
+                        commits.push(commit);
+                    }
+                });
+                resolve(commits);
             }
         });
-
-        deferred.resolve(commits);
     });
-
-    return deferred.promise;
 };
 
 var writeChangelog = function(stream, commits, version) {
@@ -176,15 +173,15 @@ var writeChangelog = function(stream, commits, version) {
 };
 
 var getPreviousTag = function() {
-    var deferred = q.defer();
-    child.exec(GIT_TAG_CMD, function(code, stdout) {
-        if (code) {
-            deferred.reject('Cannot get the previous tag.');
-        } else {
-            deferred.resolve(stdout.replace('\n', ''));
-        }
+    return new Promise(function(resolve, reject) {
+        child.exec(GIT_TAG_CMD, function(error, stdout) {
+            if (error) {
+                reject('Cannot get the previous tag.');
+            } else {
+                resolve(stdout.replace('\n', ''));
+            }
+        });
     });
-    return deferred.promise;
 };
 
 var generate = function(version, from, file) {

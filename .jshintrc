@@ -1,8 +1,8 @@
 {
   "globals": {
     "beforeEach": false,
-    "before": false,
     "beforeAll": false,
+    "before": false,
     "after": false,
     "afterEach": false,
     "afterAll": false,
@@ -28,8 +28,8 @@
   },
   "predef": [
     "beforeEach",
-    "before",
     "beforeAll",
+    "before",
     "afterEach",
     "after",
     "afterAll",
@@ -60,6 +60,7 @@
   "debug": false,
   "devel": true,
   "dojo": true,
+  "esnext": true,
   "forin": true,
   "indent": 4,
   "latedef": true,

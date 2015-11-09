@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "babel-eslint": "4.1.4",
+    "bluebird": "3.0.5",
     "chai": "3.4.1",
     "codeclimate-test-reporter": "0.1.1",
     "conventional-changelog": "0.5.1",
@@ -49,7 +50,6 @@
     "mocha-lcov-reporter": "1.0.0",
     "mockery": "1.4.0",
     "node-jsxml": "0.6.0",
-    "q": "1.4.1",
     "require-dir": "0.3.0",
     "sinon": "1.17.2",
     "stream-combiner": "0.2.2",

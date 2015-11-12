@@ -23,3 +23,4 @@ deploy:
     tags: true
     all_branches: true
     repo: mcfly-io/gulp-mux
+    node: '0.12' # this should be quoted; otherwise, 0.10 would not work

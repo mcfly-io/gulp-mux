@@ -11,7 +11,6 @@ var exec = require('gulp-exec');
 var concat = require('gulp-concat');
 var order = require('gulp-order');
 var helper = require('../common/helper');
-var helper = require('../common/helper');
 
 var constants = require('../common/constants')();
 
